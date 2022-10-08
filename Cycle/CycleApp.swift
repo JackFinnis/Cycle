@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+let SIZE = 48.0
+let NAME = "Cycle"
+
 @main
 struct CycleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }
