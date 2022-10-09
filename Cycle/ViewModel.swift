@@ -94,7 +94,7 @@ extension ViewModel: MKMapViewDelegate {
         if let polyline = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: polyline)
             renderer.lineWidth = 2
-            renderer.strokeColor = UIColor(.accentColor)
+            renderer.strokeColor = UIColor(.blue)
             return renderer
         }
         return MKOverlayRenderer(overlay: overlay)
@@ -110,6 +110,7 @@ extension ViewModel: MKMapViewDelegate {
 // MARK: - CLLocationManagerDelegate
 extension ViewModel: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        zoomedIn = false
         status = manager.authorizationStatus
         switch status {
         case .notDetermined:

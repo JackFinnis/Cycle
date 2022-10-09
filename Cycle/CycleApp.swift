@@ -8,7 +8,7 @@
 import SwiftUI
 
 let SIZE = 48.0
-let NAME = "Cycle"
+let NAME = "CycleLane"
 
 @main
 struct CycleApp: App {
