@@ -12,29 +12,50 @@ struct FloatingButtons: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var vm: ViewModel
     
+    var background: Material { colorScheme == .light ? .regularMaterial : .thickMaterial }
+    
     var body: some View {
-        VStack(spacing: 0) {
-            Button {
-                updateTrackingMode()
-            } label: {
-                Image(systemName: trackingModeImage)
-                    .frame(width: SIZE, height: SIZE)
-                    .scaleEffect(vm.scale)
+        VStack(spacing: 20) {
+            VStack {
+                if !vm.is2D || vm.mapType != .standard {
+                    Button {
+                        updatePitch()
+                    } label: {
+                        Image(systemName: vm.is2D ? "view.3d" : "view.2d")
+                            .frame(width: SIZE, height: SIZE)
+                            .font(.title3)
+                    }
+                    .background(background)
+                    .cornerRadius(10)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
+            .animation(.default, value: vm.is2D)
+            .animation(.default, value: vm.mapType)
             
-            Divider().frame(width: SIZE)
-            
-            Button {
-                updateMapType()
-            } label: {
-                Image(systemName: mapTypeImage)
-                    .frame(width: SIZE, height: SIZE)
-                    .rotation3DEffect(.degrees(vm.mapType == .hybrid ? 180 : 0), axis: (x: 0, y: 1, z: 0))
-                    .rotation3DEffect(.degrees(vm.degrees), axis: (x: 0, y: 1, z: 0))
+            VStack(spacing: 0) {
+                Button {
+                    updateTrackingMode()
+                } label: {
+                    Image(systemName: trackingModeImage)
+                        .frame(width: SIZE, height: SIZE)
+                        .scaleEffect(vm.scale)
+                }
+                
+                Divider().frame(width: SIZE)
+                
+                Button {
+                    updateMapType()
+                } label: {
+                    Image(systemName: mapTypeImage)
+                        .frame(width: SIZE, height: SIZE)
+                        .rotation3DEffect(.degrees(vm.mapType == .standard ? 0 : 180), axis: (x: 0, y: 1, z: 0))
+                        .rotation3DEffect(.degrees(vm.degrees), axis: (x: 0, y: 1, z: 0))
+                }
             }
+            .background(background)
+            .cornerRadius(10)
         }
-        .background(colorScheme == .light ? .regularMaterial : .thickMaterial)
-        .cornerRadius(10)
         .font(.system(size: SIZE/2))
         .compositingGroup()
         .shadow(color: Color(UIColor.systemFill), radius: 5)
@@ -59,12 +80,37 @@ struct FloatingButtons: View {
         let nextMapType: MKMapType = {
             switch vm.mapView?.mapType ?? .standard {
             case .standard:
-                return .hybrid
+                if vm.is2D {
+                    return .hybrid
+                } else {
+                    return .hybridFlyover
+                }
             default:
                 return .standard
             }
         }()
         vm.updateMapType(nextMapType)
+    }
+    
+    func updatePitch() {
+        let camera = MKMapCamera()
+        switch vm.mapType {
+        case .standard:
+            camera.pitch = 0
+            vm.is2D = true
+        case .hybrid:
+            vm.mapType = .hybridFlyover
+            camera.pitch = 45
+        default:
+            vm.mapType = .hybrid
+            camera.pitch = 0
+        }
+        vm.mapView?.mapType = vm.mapType
+        camera.altitude = vm.mapView?.camera.altitude ?? 0
+        camera.centerCoordinate = vm.mapView?.camera.centerCoordinate ?? .init()
+        camera.heading = vm.mapView?.camera.heading ?? .init()
+        camera.centerCoordinateDistance = vm.mapView?.camera.centerCoordinateDistance ?? 0
+        vm.mapView?.setCamera(camera, animated: true)
     }
     
     var trackingModeImage: String {

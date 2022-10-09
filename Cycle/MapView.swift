@@ -19,7 +19,7 @@ struct MapView: UIViewRepresentable {
         mapView.showsUserLocation = true
         mapView.showsScale = true
         mapView.showsCompass = true
-        mapView.isPitchEnabled = false
+        mapView.isPitchEnabled = true
         let londonCentre = CLLocationCoordinate2DMake(51.5, -0.15)
         let londonSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.8)
         let londonRegion = MKCoordinateRegion(center: londonCentre, span: londonSpan)

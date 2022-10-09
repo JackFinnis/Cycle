@@ -12,6 +12,7 @@ import SwiftUI
 class ViewModel: NSObject, ObservableObject {
     @Published var trackingMode = MKUserTrackingMode.none
     @Published var mapType = MKMapType.standard
+    @Published var is2D = true
     var mapView: MKMapView?
     var zoomedIn = false
     
@@ -104,6 +105,10 @@ extension ViewModel: MKMapViewDelegate {
         if !animated {
             updateTrackingMode(.none)
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        is2D = mapView.camera.pitch == 0 && mapType != .hybridFlyover
     }
 }
 
