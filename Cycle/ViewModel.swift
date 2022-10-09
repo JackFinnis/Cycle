@@ -45,7 +45,6 @@ class ViewModel: NSObject, ObservableObject {
         }
         
         mapView?.addOverlays(polylines, level: .aboveRoads)
-        mapView?.visibleMapRect = MKMultiPolyline(polylines).boundingMapRect
     }
     
     func updateTrackingMode(_ newTrackingMode: MKUserTrackingMode) {

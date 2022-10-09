@@ -21,6 +21,18 @@ struct MapView: UIViewRepresentable {
         mapView.showsCompass = true
         mapView.isPitchEnabled = false
         
+        let delta: Double
+        let centre: CLLocationCoordinate2D
+        if let coord = vm.manager.location?.coordinate {
+            centre = coord
+            delta = 0.02
+        } else {
+            centre = CLLocationCoordinate2DMake(51.5, -0.1)
+            delta = 0.4
+        }
+        let span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
+        mapView.region = MKCoordinateRegion(center: centre, span: span)
+        
         return mapView
     }
     
