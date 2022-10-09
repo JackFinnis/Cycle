@@ -101,9 +101,11 @@ struct FloatingButtons: View {
         case .hybrid:
             vm.mapType = .hybridFlyover
             camera.pitch = 45
+            vm.is2D = false
         default:
             vm.mapType = .hybrid
             camera.pitch = 0
+            vm.is2D = true
         }
         vm.mapView?.mapType = vm.mapType
         camera.altitude = vm.mapView?.camera.altitude ?? 0
