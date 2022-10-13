@@ -124,7 +124,7 @@ class ViewModel: NSObject, ObservableObject {
             for coord in route.coordinates {
                 let delta = targetCoord.distance(to: coord)
                 
-                if delta < shortestDistance && delta < maxDelta {
+                if delta < shortestDistance && delta < 200 {
                     shortestDistance = delta
                     closestRoute = route
                 }

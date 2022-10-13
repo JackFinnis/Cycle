@@ -37,6 +37,7 @@ struct RootView: View {
                         .padding(10)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                         .onTapGesture(perform: vm.zoomToSelected)
+                        .animation(.none, value: vm.selectedRouteName)
                 }
             }
             .animation(.default, value: vm.selectedRouteName)
