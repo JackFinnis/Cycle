@@ -10,6 +10,13 @@ import MapKit
 import SwiftUI
 
 class ViewModel: NSObject, ObservableObject {
+    var filteredRoutes = [Route]()
+    @Published var selectedRouteName: String?
+    var selectedRoutes: [Route] {
+        filteredRoutes.filter { $0.name == selectedRouteName }
+    }
+    
+    // Map
     @Published var trackingMode = MKUserTrackingMode.none
     @Published var mapType = MKMapType.standard
     @Published var is2D = true
@@ -35,17 +42,28 @@ class ViewModel: NSObject, ObservableObject {
         let data = try! Data(contentsOf: file)
         let features = try! MKGeoJSONDecoder().decode(data) as! [MKGeoJSONFeature]
         
-        var polylines = [MKPolyline]()
+        var routes = [Route]()
         for feature in features {
             let geometry = feature.geometry.first!
+            let routeData = try! JSONDecoder().decode(RouteData.self, from: feature.properties!)
+            
             if let polyline = geometry as? MKPolyline {
-                polylines.append(polyline)
+                let route = Route(coordinates: polyline.coordinates, count: polyline.pointCount)
+                route.name = routeData.Label
+                route.status = Status(rawValue: routeData.Status)!
+                routes.append(route)
             } else if let multiPolyline = geometry as? MKMultiPolyline {
-                polylines.append(contentsOf: multiPolyline.polylines)
+                for polyline in multiPolyline.polylines {
+                    let route = Route(coordinates: polyline.coordinates, count: polyline.pointCount)
+                    route.name = routeData.Label
+                    route.status = Status(rawValue: routeData.Status)!
+                    routes.append(route)
+                }
             }
         }
         
-        mapView?.addOverlays(polylines, level: .aboveRoads)
+        filteredRoutes = routes.filter { $0.status == .open }
+        mapView?.addOverlays(filteredRoutes, level: .aboveRoads)
     }
     
     func updateTrackingMode(_ newTrackingMode: MKUserTrackingMode) {
@@ -87,15 +105,69 @@ class ViewModel: NSObject, ObservableObject {
             UIApplication.shared.open(url)
         }
     }
+    
+    func selectClosestRoute(to targetCoord: CLLocationCoordinate2D) {
+        let routes = selectedRoutes
+        selectedRouteName = nil
+        resetRoutes(routes)
+        
+        var shortestDistance = Double.infinity
+        var closestRoute: Route?
+        
+        guard let mapView = mapView else { return }
+        let rect = mapView.visibleMapRect
+        let topLeft = MKMapPoint(x: rect.minX, y: rect.minY)
+        let bottomRight = MKMapPoint(x: rect.maxX, y: rect.maxY)
+        let maxDelta = topLeft.distance(to: bottomRight) / 50
+        
+        for route in filteredRoutes {
+            for coord in route.coordinates {
+                let delta = targetCoord.distance(to: coord)
+                
+                if delta < shortestDistance && delta < maxDelta {
+                    shortestDistance = delta
+                    closestRoute = route
+                }
+            }
+        }
+        
+        selectedRouteName = closestRoute?.name
+        resetRoutes(selectedRoutes)
+    }
+    
+    func resetRoutes(_ routes: [Route]) {
+        for route in routes {
+            mapView?.removeOverlay(route)
+            mapView?.addOverlay(route)
+        }
+    }
+    
+    func zoomToSelected() {
+        guard let selectedRouteName = selectedRouteName else { return }
+        let selectedRoutes = filteredRoutes.filter { $0.name == selectedRouteName }
+        let rect = MKMultiPolyline(selectedRoutes).boundingMapRect
+        let padding = UIEdgeInsets(top: 20, left: 20, bottom: 80, right: 20)
+        mapView?.setVisibleMapRect(rect, edgePadding: padding, animated: true)
+    }
+}
+
+// MARK: - Gesture Recogniser
+extension ViewModel {
+    @objc func handleTap(_ tap: UITapGestureRecognizer) {
+        guard let mapView = mapView else { return }
+        let tapPoint = tap.location(in: mapView)
+        let tapCoord = mapView.convert(tapPoint, toCoordinateFrom: mapView)
+        selectClosestRoute(to: tapCoord)
+    }
 }
 
 // MARK: - MKMapViewDelegate
 extension ViewModel: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let polyline = overlay as? MKPolyline {
-            let renderer = MKPolylineRenderer(polyline: polyline)
+        if let route = overlay as? Route {
+            let renderer = MKPolylineRenderer(polyline: route)
             renderer.lineWidth = 2
-            renderer.strokeColor = UIColor(.blue)
+            renderer.strokeColor = UIColor(route.name == selectedRouteName ? .yellow : .blue)
             return renderer
         }
         return MKOverlayRenderer(overlay: overlay)
@@ -108,7 +180,9 @@ extension ViewModel: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        is2D = mapView.camera.pitch == 0 && mapType != .hybridFlyover
+        DispatchQueue.main.async {
+            self.is2D = mapView.camera.pitch == 0 && self.mapType != .hybridFlyover
+        }
     }
 }
 

@@ -37,6 +37,9 @@ struct MapView: UIViewRepresentable {
         let span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         mapView.region = MKCoordinateRegion(center: centre, span: span)
         
+        let tapRecognizer = UITapGestureRecognizer(target: vm, action: #selector(ViewModel.handleTap))
+        mapView.addGestureRecognizer(tapRecognizer)
+        
         return mapView
     }
     

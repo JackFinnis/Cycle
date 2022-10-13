@@ -9,10 +9,9 @@ import SwiftUI
 import MapKit
 
 struct FloatingButtons: View {
-    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var vm: ViewModel
     
-    var background: Material { colorScheme == .light ? .regularMaterial : .thickMaterial }
+    let background: Material
     
     var body: some View {
         VStack(spacing: 20) {
@@ -133,11 +132,5 @@ struct FloatingButtons: View {
         default:
             return "map"
         }
-    }
-}
-
-struct FloatingButtons_Previews: PreviewProvider {
-    static var previews: some View {
-        FloatingButtons()
     }
 }
