@@ -114,12 +114,6 @@ class ViewModel: NSObject, ObservableObject {
         var shortestDistance = Double.infinity
         var closestRoute: Route?
         
-        guard let mapView = mapView else { return }
-        let rect = mapView.visibleMapRect
-        let topLeft = MKMapPoint(x: rect.minX, y: rect.minY)
-        let bottomRight = MKMapPoint(x: rect.maxX, y: rect.maxY)
-        let maxDelta = topLeft.distance(to: bottomRight) / 50
-        
         for route in filteredRoutes {
             for coord in route.coordinates {
                 let delta = targetCoord.distance(to: coord)

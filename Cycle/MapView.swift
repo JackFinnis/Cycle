@@ -20,10 +20,10 @@ struct MapView: UIViewRepresentable {
         mapView.showsScale = true
         mapView.showsCompass = true
         mapView.isPitchEnabled = true
-        let londonCentre = CLLocationCoordinate2DMake(51.5, -0.15)
-        let londonSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.8)
-        let londonRegion = MKCoordinateRegion(center: londonCentre, span: londonSpan)
-        mapView.cameraBoundary = .init(coordinateRegion: londonRegion)
+//        let londonCentre = CLLocationCoordinate2DMake(51.5, -0.15)
+//        let londonSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.8)
+//        let londonRegion = MKCoordinateRegion(center: londonCentre, span: londonSpan)
+//        mapView.cameraBoundary = .init(coordinateRegion: londonRegion)
         
         let delta: Double
         let centre: CLLocationCoordinate2D
