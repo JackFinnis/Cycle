@@ -39,6 +39,8 @@ struct MapView: UIViewRepresentable {
         
         let tapRecognizer = UITapGestureRecognizer(target: vm, action: #selector(ViewModel.handleTap))
         mapView.addGestureRecognizer(tapRecognizer)
+        let pressRecognizer = UILongPressGestureRecognizer(target: vm, action: #selector(ViewModel.handlePress))
+        mapView.addGestureRecognizer(pressRecognizer)
         
         return mapView
     }

@@ -143,6 +143,16 @@ class ViewModel: NSObject, ObservableObject {
         let padding = UIEdgeInsets(top: 20, left: 20, bottom: 80, right: 20)
         mapView?.setVisibleMapRect(rect, edgePadding: padding, animated: true)
     }
+    
+    func openInMaps(name: String?, coord: CLLocationCoordinate2D) {
+        CLGeocoder().reverseGeocodeLocation(coord.location) { placemarks, error in
+            if let placemark = placemarks?.first {
+                let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placemark))
+                mapItem.name = name ?? placemark.name
+                mapItem.openInMaps()
+            }
+        }
+    }
 }
 
 // MARK: - Gesture Recogniser
@@ -152,6 +162,13 @@ extension ViewModel {
         let tapPoint = tap.location(in: mapView)
         let tapCoord = mapView.convert(tapPoint, toCoordinateFrom: mapView)
         selectClosestRoute(to: tapCoord)
+    }
+    
+    @objc func handlePress(_ press: UILongPressGestureRecognizer) {
+        guard let mapView = mapView else { return }
+        let pressPoint = press.location(in: mapView)
+        let pressCoord = mapView.convert(pressPoint, toCoordinateFrom: mapView)
+        openInMaps(name: nil, coord: pressCoord)
     }
 }
 
@@ -165,6 +182,16 @@ extension ViewModel: MKMapViewDelegate {
             return renderer
         }
         return MKOverlayRenderer(overlay: overlay)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let user = annotation as? MKUserLocation {
+            let view = MKUserLocationView(annotation: user, reuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            view.rightCalloutAccessoryView = UILabel()
+            view.leftCalloutAccessoryView = UILabel()
+            return view
+        }
+        return nil
     }
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
