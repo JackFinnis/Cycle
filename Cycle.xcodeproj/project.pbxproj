@@ -72,8 +72,6 @@
 				04DC772228F2202100B07616 /* MapView.swift */,
 				04DC772028F2200B00B07616 /* MapButtons.swift */,
 				0402C6BC2A18F73400238C51 /* Extra */,
-				0402C6BD2A18F73A00238C51 /* Models */,
-				0402C6C02A18F95700238C51 /* Helpers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -149,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				0402C6BB2A18F72500238C51 /* Views */,
+				0402C6BD2A18F73A00238C51 /* Models */,
+				0402C6C02A18F95700238C51 /* Helpers */,
 				0402C6BE2A18F74700238C51 /* Extensions */,
 				0402C6BF2A18F75000238C51 /* Resources */,
 			);
