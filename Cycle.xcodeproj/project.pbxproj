@@ -7,29 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0402C6C22A18F98A00238C51 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C12A18F98A00238C51 /* Constants.swift */; };
+		0402C6C42A18FA2F00238C51 /* CarbonCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C32A18FA2F00238C51 /* CarbonCopy.swift */; };
+		0402C6C62A18FBD700238C51 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C52A18FBD700238C51 /* View.swift */; };
+		0402C6C82A18FCC600238C51 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C72A18FCC600238C51 /* Store.swift */; };
+		0402C6CA2A18FCF900238C51 /* Emails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C92A18FCF900238C51 /* Emails.swift */; };
+		0402C6CC2A18FD0600238C51 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6CB2A18FD0600238C51 /* String.swift */; };
+		0402C6CE2A18FD4700238C51 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6CD2A18FD4700238C51 /* EmailView.swift */; };
+		0402C6D02A18FD7400238C51 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6CF2A18FD7400238C51 /* ShareView.swift */; };
+		0402C6D22A19034700238C51 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D12A19034700238C51 /* Array.swift */; };
+		0402C6D42A19063000238C51 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D32A19063000238C51 /* NSObject.swift */; };
 		04DC770328F21AED00B07616 /* CycleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC770228F21AED00B07616 /* CycleApp.swift */; };
 		04DC770728F21AEE00B07616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04DC770628F21AEE00B07616 /* Assets.xcassets */; };
 		04DC771D28F21DD800B07616 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC771C28F21DD800B07616 /* ViewModel.swift */; };
 		04DC771F28F21EA500B07616 /* CycleRoutes.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 04DC771E28F21EA500B07616 /* CycleRoutes.geojson */; };
-		04DC772128F2200B00B07616 /* FloatingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772028F2200B00B07616 /* FloatingButtons.swift */; };
+		04DC772128F2200B00B07616 /* MapButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772028F2200B00B07616 /* MapButtons.swift */; };
 		04DC772328F2202200B07616 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772228F2202100B07616 /* MapView.swift */; };
 		04DC772528F2202700B07616 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772428F2202700B07616 /* RootView.swift */; };
-		04DC772728F234DA00B07616 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772628F234DA00B07616 /* Blur.swift */; };
 		04DC772928F8317300B07616 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772828F8317300B07616 /* Route.swift */; };
 		04DC772B28F832F100B07616 /* MKMultiPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772A28F832F100B07616 /* MKMultiPoint.swift */; };
 		04DC772D28F8355200B07616 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0402C6C12A18F98A00238C51 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0402C6C32A18FA2F00238C51 /* CarbonCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonCopy.swift; sourceTree = "<group>"; };
+		0402C6C52A18FBD700238C51 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		0402C6C72A18FCC600238C51 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		0402C6C92A18FCF900238C51 /* Emails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emails.swift; sourceTree = "<group>"; };
+		0402C6CB2A18FD0600238C51 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		0402C6CD2A18FD4700238C51 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
+		0402C6CF2A18FD7400238C51 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		0402C6D12A19034700238C51 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		0402C6D32A19063000238C51 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		04DC76FF28F21AED00B07616 /* Cycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DC770228F21AED00B07616 /* CycleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleApp.swift; sourceTree = "<group>"; };
 		04DC770628F21AEE00B07616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04DC771C28F21DD800B07616 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		04DC771E28F21EA500B07616 /* CycleRoutes.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CycleRoutes.geojson; sourceTree = "<group>"; };
-		04DC772028F2200B00B07616 /* FloatingButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingButtons.swift; sourceTree = "<group>"; };
+		04DC772028F2200B00B07616 /* MapButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapButtons.swift; sourceTree = "<group>"; };
 		04DC772228F2202100B07616 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		04DC772428F2202700B07616 /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		04DC772628F234DA00B07616 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		04DC772828F8317300B07616 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		04DC772A28F832F100B07616 /* MKMultiPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMultiPoint.swift; sourceTree = "<group>"; };
 		04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
@@ -46,6 +64,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0402C6BB2A18F72500238C51 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				04DC770228F21AED00B07616 /* CycleApp.swift */,
+				04DC772428F2202700B07616 /* RootView.swift */,
+				04DC772228F2202100B07616 /* MapView.swift */,
+				04DC772028F2200B00B07616 /* MapButtons.swift */,
+				0402C6BC2A18F73400238C51 /* Extra */,
+				0402C6BD2A18F73A00238C51 /* Models */,
+				0402C6C02A18F95700238C51 /* Helpers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0402C6BC2A18F73400238C51 /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				0402C6C32A18FA2F00238C51 /* CarbonCopy.swift */,
+				0402C6CD2A18FD4700238C51 /* EmailView.swift */,
+				0402C6CF2A18FD7400238C51 /* ShareView.swift */,
+				0402C6C52A18FBD700238C51 /* View.swift */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
+		0402C6BD2A18F73A00238C51 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				04DC771C28F21DD800B07616 /* ViewModel.swift */,
+				04DC772828F8317300B07616 /* Route.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0402C6BE2A18F74700238C51 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */,
+				04DC772A28F832F100B07616 /* MKMultiPoint.swift */,
+				0402C6D32A19063000238C51 /* NSObject.swift */,
+				0402C6CB2A18FD0600238C51 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0402C6BF2A18F75000238C51 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				04DC770628F21AEE00B07616 /* Assets.xcassets */,
+				04DC771E28F21EA500B07616 /* CycleRoutes.geojson */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0402C6C02A18F95700238C51 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0402C6D12A19034700238C51 /* Array.swift */,
+				0402C6C12A18F98A00238C51 /* Constants.swift */,
+				0402C6C92A18FCF900238C51 /* Emails.swift */,
+				0402C6C72A18FCC600238C51 /* Store.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		04DC76F628F21AED00B07616 = {
 			isa = PBXGroup;
 			children = (
@@ -65,17 +148,9 @@
 		04DC770128F21AED00B07616 /* Cycle */ = {
 			isa = PBXGroup;
 			children = (
-				04DC770228F21AED00B07616 /* CycleApp.swift */,
-				04DC772428F2202700B07616 /* RootView.swift */,
-				04DC772028F2200B00B07616 /* FloatingButtons.swift */,
-				04DC772228F2202100B07616 /* MapView.swift */,
-				04DC772628F234DA00B07616 /* Blur.swift */,
-				04DC771C28F21DD800B07616 /* ViewModel.swift */,
-				04DC772828F8317300B07616 /* Route.swift */,
-				04DC772A28F832F100B07616 /* MKMultiPoint.swift */,
-				04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */,
-				04DC770628F21AEE00B07616 /* Assets.xcassets */,
-				04DC771E28F21EA500B07616 /* CycleRoutes.geojson */,
+				0402C6BB2A18F72500238C51 /* Views */,
+				0402C6BE2A18F74700238C51 /* Extensions */,
+				0402C6BF2A18F75000238C51 /* Resources */,
 			);
 			path = Cycle;
 			sourceTree = "<group>";
@@ -150,15 +225,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04DC772728F234DA00B07616 /* Blur.swift in Sources */,
-				04DC772128F2200B00B07616 /* FloatingButtons.swift in Sources */,
+				04DC772128F2200B00B07616 /* MapButtons.swift in Sources */,
+				0402C6C42A18FA2F00238C51 /* CarbonCopy.swift in Sources */,
 				04DC772D28F8355200B07616 /* CLLocationCoordinate2D.swift in Sources */,
+				0402C6D42A19063000238C51 /* NSObject.swift in Sources */,
+				0402C6D22A19034700238C51 /* Array.swift in Sources */,
+				0402C6C82A18FCC600238C51 /* Store.swift in Sources */,
+				0402C6CC2A18FD0600238C51 /* String.swift in Sources */,
 				04DC772B28F832F100B07616 /* MKMultiPoint.swift in Sources */,
 				04DC772328F2202200B07616 /* MapView.swift in Sources */,
+				0402C6C22A18F98A00238C51 /* Constants.swift in Sources */,
+				0402C6D02A18FD7400238C51 /* ShareView.swift in Sources */,
+				0402C6CA2A18FCF900238C51 /* Emails.swift in Sources */,
 				04DC771D28F21DD800B07616 /* ViewModel.swift in Sources */,
 				04DC770328F21AED00B07616 /* CycleApp.swift in Sources */,
 				04DC772928F8317300B07616 /* Route.swift in Sources */,
+				0402C6C62A18FBD700238C51 /* View.swift in Sources */,
 				04DC772528F2202700B07616 /* RootView.swift in Sources */,
+				0402C6CE2A18FD4700238C51 /* EmailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
