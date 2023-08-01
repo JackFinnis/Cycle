@@ -17,27 +17,6 @@ struct MapButtons: View {
     var body: some View {
         VStack(spacing: 10) {
             VStack(spacing: 0) {
-                Button {
-                    updateMapType()
-                } label: {
-                    Image(systemName: mapTypeImage)
-                        .squareButton()
-                        .rotation3DEffect(.degrees(vm.mapType == .standard ? 0 : 180), axis: (x: 0, y: 1, z: 0))
-                        .rotation3DEffect(.degrees(vm.degrees), axis: (x: 0, y: 1, z: 0))
-                }
-                
-                Divider().frame(width: Constants.size)
-                Button {
-                    updateTrackingMode()
-                } label: {
-                    Image(systemName: trackingModeImage)
-                        .scaleEffect(vm.scale)
-                        .squareButton()
-                }
-            }
-            .blurBackground()
-            
-            VStack(spacing: 0) {
                 Menu {
                     Button {
                         showShareSheet = true
@@ -71,26 +50,48 @@ struct MapButtons: View {
                     Image(systemName: "info.circle")
                         .squareButton()
                 }
+                .sharePopover(items: [Constants.appUrl], showsSharedAlert: true, isPresented: $showShareSheet)
                 
-                if let name = vm.selectedRouteId {
+                Divider().frame(width: Constants.size)
+                Button {
+                    updateMapType()
+                } label: {
+                    Image(systemName: mapTypeImage)
+                        .squareButton()
+                        .rotation3DEffect(.degrees(vm.mapType == .standard ? 0 : 180), axis: (x: 0, y: 1, z: 0))
+                        .rotation3DEffect(.degrees(vm.degrees), axis: (x: 0, y: 1, z: 0))
+                }
+                
+                Divider().frame(width: Constants.size)
+                Button {
+                    updateTrackingMode()
+                } label: {
+                    Image(systemName: trackingModeImage)
+                        .scaleEffect(vm.scale)
+                        .squareButton()
+                }
+                
+                if !vm.is2D || vm.mapType != .standard {
                     Divider().frame(width: Constants.size)
-                    Button(name) {
-                        vm.zoomToSelected()
+                    Button {
+                        vm.updatePitch()
+                    } label: {
+                        Image(systemName: vm.is2D ? "view.3d" : "view.2d")
+                            .squareButton()
                     }
-                    .font(.system(size: 17).weight(.medium))
-                    .animation(.none, value: vm.selectedRouteId)
-                    .squareButton()
                     .transition(.move(edge: .top).combined(with: .opacity))
                 }
             }
             .blurBackground()
             
-            if !vm.is2D || vm.mapType != .standard {
+            if let name = vm.selectedRouteId {
                 Button {
-                    vm.updatePitch()
+                    vm.zoomToSelected()
                 } label: {
-                    Image(systemName: vm.is2D ? "view.3d" : "view.2d")
+                    Text(name)
+                        .font(.system(size: 17).weight(.medium))
                         .squareButton()
+                        .animation(.none, value: vm.selectedRouteId)
                 }
                 .blurBackground()
                 .transition(.move(edge: .top).combined(with: .opacity))
@@ -100,7 +101,6 @@ struct MapButtons: View {
         .animation(.default, value: vm.selectedRouteId)
         .animation(.default, value: vm.is2D)
         .animation(.default, value: vm.mapType)
-        .shareSheet(items: [Constants.appUrl], isPresented: $showShareSheet)
         .emailSheet(recipient: Constants.email, subject: "\(Constants.name) Feedback", isPresented: $showEmailSheet)
     }
     

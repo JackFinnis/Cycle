@@ -9,7 +9,7 @@ import SwiftUI
 
 extension View {
     func horizontallyCentred() -> some View {
-        HStack {
+        HStack(spacing: 0) {
             Spacer(minLength: 0)
             self
             Spacer(minLength: 0)
@@ -23,7 +23,7 @@ extension View {
     
     func addShadow() -> some View {
         self.compositingGroup()
-            .shadow(color: Color.black.opacity(0.2), radius: 5)
+            .shadow(color: Color.black.opacity(0.2), radius: 5, y: 5)
     }
     
     func blurBackground() -> some View {
@@ -42,7 +42,7 @@ extension View {
             .horizontallyCentred()
             .foregroundColor(.white)
             .background(Color.accentColor)
-            .continuousRadius(16)
+            .continuousRadius(15)
     }
     
     @ViewBuilder

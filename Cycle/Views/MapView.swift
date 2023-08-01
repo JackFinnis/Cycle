@@ -9,9 +9,13 @@ import SwiftUI
 import MapKit
 
 class _MKMapView: MKMapView {
+    var compass: UIView? {
+        subviews.first(where: { type(of: $0).id == "MKCompassView" })
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        if let compass = subviews.first(where: { type(of: $0).id == "MKCompassView" }) {
+        if let compass {
             compass.center = compass.center.applying(.init(translationX: -(15 + Constants.size), y: 5))
             if (compass.gestureRecognizers?.count ?? 0) < 2 {
                 let tap = UITapGestureRecognizer(target: ViewModel.shared, action: #selector(ViewModel.tappedCompass))
@@ -35,6 +39,9 @@ struct MapView: UIViewRepresentable {
         mapView.showsScale = true
         mapView.showsCompass = true
         mapView.isPitchEnabled = true
+        if #available(iOS 16, *) {
+            mapView.selectableMapFeatures = [.physicalFeatures, .pointsOfInterest, .territories]
+        }
         
         let tapRecognizer = UITapGestureRecognizer(target: vm, action: #selector(ViewModel.handleTap))
         mapView.addGestureRecognizer(tapRecognizer)

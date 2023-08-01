@@ -99,6 +99,7 @@
 		0402C6BE2A18F74700238C51 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0402C6D12A19034700238C51 /* Array.swift */,
 				04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */,
 				04DC772A28F832F100B07616 /* MKMultiPoint.swift */,
 				0402C6D32A19063000238C51 /* NSObject.swift */,
@@ -119,7 +120,6 @@
 		0402C6C02A18F95700238C51 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0402C6D12A19034700238C51 /* Array.swift */,
 				0402C6C12A18F98A00238C51 /* Constants.swift */,
 				0402C6C92A18FCF900238C51 /* Emails.swift */,
 				0402C6C72A18FCC600238C51 /* Store.swift */,

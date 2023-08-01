@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct RootView: View {
+    @Environment(\.scenePhase) var scenePhase
     @Environment(\.colorScheme) var colorScheme
     @StateObject var vm = ViewModel.shared
-    
-    var background: Material { colorScheme == .light ? .regularMaterial : .thickMaterial }
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -20,7 +19,7 @@ struct RootView: View {
             
             VStack {
                 CarbonCopy()
-                    .id(colorScheme)
+                    .id(scenePhase)
                     .blur(radius: 10, opaque: true)
                     .ignoresSafeArea()
                 Spacer()
