@@ -67,7 +67,7 @@ class ViewModel: NSObject, ObservableObject {
         }
     }
     
-    func updateTrackingMode(_ newMode: MKUserTrackingMode) {
+    func setTrackingMode(_ newMode: MKUserTrackingMode) {
         guard validateAuth(), let mapView else { return }
         mapView.setUserTrackingMode(newMode, animated: true)
         if trackingMode == .followWithHeading || newMode == .followWithHeading {
@@ -85,7 +85,7 @@ class ViewModel: NSObject, ObservableObject {
         }
     }
     
-    func updateMapType(_ newType: MKMapType) {
+    func setMapType(_ newType: MKMapType) {
         guard let mapView else { return }
         mapView.mapType = newType
         refreshOverlays()
@@ -129,6 +129,13 @@ class ViewModel: NSObject, ObservableObject {
         }
     }
     
+    func reverseGeocode(coord: CLLocationCoordinate2D, completion: @escaping (CLPlacemark) -> Void) {
+        CLGeocoder().reverseGeocodeLocation(coord.location) { placemarks, error in
+            guard let placemark = placemarks?.first else { return }
+            completion(placemark)
+        }
+    }
+    
     var tapDelta: Double {
         guard let rect = mapView?.visibleMapRect else { return 0 }
         let left = MKMapPoint(x: rect.minX, y: rect.midY)
@@ -152,7 +159,6 @@ class ViewModel: NSObject, ObservableObject {
                 }
             }
         }
-        
         selectedRouteId = closestRoute?.id
         refreshOverlays()
     }
@@ -166,15 +172,6 @@ class ViewModel: NSObject, ObservableObject {
         let padding = 20.0
         let insets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         mapView?.setVisibleMapRect(selectedRoutes.rect, edgePadding: insets, animated: true)
-    }
-    
-    func openInMaps(name: String? = nil, coord: CLLocationCoordinate2D) {
-        CLGeocoder().reverseGeocodeLocation(coord.location) { placemarks, error in
-            guard let placemark = placemarks?.first else { return }
-            let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placemark))
-            mapItem.name = name ?? placemark.name
-            mapItem.openInMaps()
-        }
     }
 }
 
@@ -193,15 +190,20 @@ extension ViewModel: UIGestureRecognizerDelegate {
         selectClosestRoute(to: coord)
     }
     
-    @objc func handleLongPress(_ longPress: UILongPressGestureRecognizer) {
-        guard let coord = getCoord(from: longPress) else { return }
-        openInMaps(coord: coord)
+    @objc func handlePress(_ press: UILongPressGestureRecognizer) {
+        guard press.state == .began, let coord = getCoord(from: press) else { return }
+        Haptics.tap()
+        reverseGeocode(coord: coord) { placemark in
+            let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placemark))
+            self.mapView?.addAnnotation(mapItem)
+            self.mapView?.selectAnnotation(mapItem, animated: true)
+        }
     }
     
     @objc
     func tappedCompass() {
         guard trackingMode == .followWithHeading else { return }
-        updateTrackingMode(.follow)
+        setTrackingMode(.follow)
     }
 }
 
@@ -219,15 +221,65 @@ extension ViewModel: MKMapViewDelegate {
         return MKOverlayRenderer(overlay: overlay)
     }
     
+    func getButton(systemName: String) -> UIButton {
+        let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: Constants.size/2))
+        let image = UIImage(systemName: systemName, withConfiguration: config)
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.frame.size = CGSize(width: Constants.size, height: Constants.size)
+        return button
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if #available(iOS 16, *), let feature = annotation as? MKMapFeatureAnnotation {
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMarkerAnnotationView.id, for: feature) as? MKMarkerAnnotationView
+            view?.canShowCallout = true
+            view?.markerTintColor = feature.iconStyle?.backgroundColor
+            view?.rightCalloutAccessoryView = getButton(systemName: "arrow.triangle.turn.up.right.circle")
+            if let icon = feature.iconStyle {
+                let imageView = UIImageView(image: icon.image.withTintColor(icon.backgroundColor, renderingMode: .alwaysOriginal))
+                imageView.frame.size = CGSize(width: Constants.size, height: Constants.size)
+                view?.leftCalloutAccessoryView = imageView
+            }
+            return view
+        } else if let mapItem = annotation as? MKMapItem {
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMarkerAnnotationView.id, for: mapItem) as? MKMarkerAnnotationView
+            view?.canShowCallout = true
+            view?.animatesWhenAdded = true
+            view?.rightCalloutAccessoryView = getButton(systemName: "arrow.triangle.turn.up.right.circle")
+            return view
+        }
+        return nil
+    }
+    
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        guard let user = mapView.view(for: mapView.userLocation) else { return }
-        user.rightCalloutAccessoryView = UILabel()
-        user.leftCalloutAccessoryView = UILabel()
+        if let user = mapView.view(for: mapView.userLocation) {
+            user.rightCalloutAccessoryView = getButton(systemName: "map")
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if #available(iOS 16, *), let feature = view.annotation as? MKMapFeatureAnnotation {
+            let request = MKMapItemRequest(mapFeatureAnnotation: feature)
+            request.getMapItem { mapItem, error in
+                mapItem?.openInMaps()
+            }
+        } else if let mapItem = view.annotation as? MKMapItem {
+            mapItem.openInMaps()
+        } else if let _ = view.annotation as? MKUserLocation {
+            MKMapItem.forCurrentLocation().openInMaps()
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if let mapItem = view.annotation as? MKMapItem {
+            mapView.removeAnnotation(mapItem)
+        }
     }
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         if !animated {
-            updateTrackingMode(.none)
+            setTrackingMode(.none)
         }
     }
     
@@ -250,7 +302,7 @@ extension ViewModel: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authStatus = manager.authorizationStatus
         if authStatus == .denied {
-            showAuthAlert = true
+            showAuthAlert.toggle()
         } else if authStatus == .notDetermined {
             manager.requestWhenInUseAuthorization()
         }

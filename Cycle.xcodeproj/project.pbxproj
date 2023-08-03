@@ -17,6 +17,8 @@
 		0402C6D02A18FD7400238C51 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6CF2A18FD7400238C51 /* ShareView.swift */; };
 		0402C6D22A19034700238C51 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D12A19034700238C51 /* Array.swift */; };
 		0402C6D42A19063000238C51 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D32A19063000238C51 /* NSObject.swift */; };
+		0445D5412A7C65ED00B22EA0 /* MKMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */; };
+		0445D5432A7C66A400B22EA0 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445D5422A7C66A400B22EA0 /* Haptics.swift */; };
 		04DC770328F21AED00B07616 /* CycleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC770228F21AED00B07616 /* CycleApp.swift */; };
 		04DC770728F21AEE00B07616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04DC770628F21AEE00B07616 /* Assets.xcassets */; };
 		04DC771D28F21DD800B07616 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC771C28F21DD800B07616 /* ViewModel.swift */; };
@@ -40,6 +42,9 @@
 		0402C6CF2A18FD7400238C51 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		0402C6D12A19034700238C51 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		0402C6D32A19063000238C51 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
+		0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapItem.swift; sourceTree = "<group>"; };
+		0445D5422A7C66A400B22EA0 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		0445D5442A7C6A2300B22EA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04DC76FF28F21AED00B07616 /* Cycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DC770228F21AED00B07616 /* CycleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleApp.swift; sourceTree = "<group>"; };
 		04DC770628F21AEE00B07616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,6 +106,7 @@
 			children = (
 				0402C6D12A19034700238C51 /* Array.swift */,
 				04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */,
+				0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */,
 				04DC772A28F832F100B07616 /* MKMultiPoint.swift */,
 				0402C6D32A19063000238C51 /* NSObject.swift */,
 				0402C6CB2A18FD0600238C51 /* String.swift */,
@@ -111,6 +117,7 @@
 		0402C6BF2A18F75000238C51 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0445D5442A7C6A2300B22EA0 /* Info.plist */,
 				04DC770628F21AEE00B07616 /* Assets.xcassets */,
 				04DC771E28F21EA500B07616 /* CycleRoutes.geojson */,
 			);
@@ -122,6 +129,7 @@
 			children = (
 				0402C6C12A18F98A00238C51 /* Constants.swift */,
 				0402C6C92A18FCF900238C51 /* Emails.swift */,
+				0445D5422A7C66A400B22EA0 /* Haptics.swift */,
 				0402C6C72A18FCC600238C51 /* Store.swift */,
 			);
 			path = Helpers;
@@ -229,6 +237,7 @@
 				0402C6C42A18FA2F00238C51 /* CarbonCopy.swift in Sources */,
 				04DC772D28F8355200B07616 /* CLLocationCoordinate2D.swift in Sources */,
 				0402C6D42A19063000238C51 /* NSObject.swift in Sources */,
+				0445D5412A7C65ED00B22EA0 /* MKMapItem.swift in Sources */,
 				0402C6D22A19034700238C51 /* Array.swift in Sources */,
 				0402C6C82A18FCC600238C51 /* Store.swift in Sources */,
 				0402C6CC2A18FD0600238C51 /* String.swift in Sources */,
@@ -236,6 +245,7 @@
 				04DC772328F2202200B07616 /* MapView.swift in Sources */,
 				0402C6C22A18F98A00238C51 /* Constants.swift in Sources */,
 				0402C6D02A18FD7400238C51 /* ShareView.swift in Sources */,
+				0445D5432A7C66A400B22EA0 /* Haptics.swift in Sources */,
 				0402C6CA2A18FCF900238C51 /* Emails.swift in Sources */,
 				04DC771D28F21DD800B07616 /* ViewModel.swift in Sources */,
 				04DC770328F21AED00B07616 /* CycleApp.swift in Sources */,
@@ -374,13 +384,12 @@
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Cycle/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CycleLane;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location is shown on the map";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -406,13 +415,12 @@
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Cycle/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CycleLane;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location is shown on the map";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

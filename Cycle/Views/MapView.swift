@@ -39,13 +39,14 @@ struct MapView: UIViewRepresentable {
         mapView.showsScale = true
         mapView.showsCompass = true
         mapView.isPitchEnabled = true
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMarkerAnnotationView.id)
         if #available(iOS 16, *) {
             mapView.selectableMapFeatures = [.physicalFeatures, .pointsOfInterest, .territories]
         }
         
         let tapRecognizer = UITapGestureRecognizer(target: vm, action: #selector(ViewModel.handleTap))
         mapView.addGestureRecognizer(tapRecognizer)
-        let longPressRecognizer = UILongPressGestureRecognizer(target: vm, action: #selector(ViewModel.handleLongPress))
+        let longPressRecognizer = UILongPressGestureRecognizer(target: vm, action: #selector(ViewModel.handlePress))
         mapView.addGestureRecognizer(longPressRecognizer)
         
         return mapView

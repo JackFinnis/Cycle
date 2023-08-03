@@ -62,9 +62,9 @@ struct EmailModifier: ViewModifier {
                 EmailView(recipient: recipient, subject: subject) { result in
                     switch result {
                     case .sent:
-                        showEmailSent = true
+                        showEmailSent.toggle()
                     case .failed:
-                        showEmailNotSent = true
+                        showEmailNotSent.toggle()
                     default:
                         break
                     }
@@ -75,7 +75,7 @@ struct EmailModifier: ViewModifier {
             .alert("Email Sent", isPresented: $showEmailSent) {
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("Thank you for your feedback!\nWe'll get back to you as soon as possible.")
+                Text("Thanks for your feedback!\nWe'll get back to you as soon as possible.")
             }
             .alert("Email Not Sent", isPresented: $showEmailNotSent) {
                 Button("OK", role: .cancel) {}
@@ -83,7 +83,7 @@ struct EmailModifier: ViewModifier {
                     vm.openSettings()
                 }
             } message: {
-                Text("Please authenticate your email account and try again.")
+                Text("Please ensure your email account is authenticated and try again.")
             }
     }
 }

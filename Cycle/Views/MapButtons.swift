@@ -19,7 +19,7 @@ struct MapButtons: View {
             VStack(spacing: 0) {
                 Menu {
                     Button {
-                        showShareSheet = true
+                        showShareSheet.toggle()
                     } label: {
                         Label("Share \(Constants.name)", systemImage: "square.and.arrow.up")
                     }
@@ -102,36 +102,38 @@ struct MapButtons: View {
         .animation(.default, value: vm.is2D)
         .animation(.default, value: vm.mapType)
         .emailSheet(recipient: Constants.email, subject: "\(Constants.name) Feedback", isPresented: $showEmailSheet)
+        .alert("Access Denied", isPresented: $vm.showAuthAlert) {
+            Button("Maybe Later") {}
+            Button("Settings", role: .cancel) {
+                vm.openSettings()
+            }
+        } message: {
+            Text("\(Constants.name) needs access to your location to show where you are on the map. Please go to Settings > \(Constants.name) > Location and select \"While Using the App\".")
+        }
     }
     
     func updateTrackingMode() {
-        var mode: MKUserTrackingMode {
-            switch vm.trackingMode {
-            case .none:
-                return .follow
-            case .follow:
-                return .followWithHeading
-            default:
-                return .none
-            }
+        let mode: MKUserTrackingMode
+        switch vm.trackingMode {
+        case .none:
+            mode = .follow
+        case .follow:
+            mode = .followWithHeading
+        default:
+            mode = .none
         }
-        vm.updateTrackingMode(mode)
+        vm.setTrackingMode(mode)
     }
     
     func updateMapType() {
-        var type: MKMapType {
-            switch vm.mapType {
-            case .standard:
-                if vm.is2D {
-                    return .hybrid
-                } else {
-                    return .hybridFlyover
-                }
-            default:
-                return .standard
-            }
+        let type: MKMapType
+        switch vm.mapType {
+        case .standard:
+            type = .hybrid
+        default:
+            type = .standard
         }
-        vm.updateMapType(type)
+        vm.setMapType(type)
     }
     
     var trackingModeImage: String {
