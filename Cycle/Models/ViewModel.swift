@@ -33,7 +33,7 @@ class ViewModel: NSObject, ObservableObject {
     @Published var showAuthAlert = false
     
     // Animations
-    @Published var degrees = 0.0
+    @Published var degrees = 180.0
     @Published var scale = 1.0
     
     // MARK: - Initialiser

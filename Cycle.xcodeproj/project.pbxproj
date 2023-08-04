@@ -19,10 +19,10 @@
 		0402C6D42A19063000238C51 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D32A19063000238C51 /* NSObject.swift */; };
 		0445D5412A7C65ED00B22EA0 /* MKMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */; };
 		0445D5432A7C66A400B22EA0 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445D5422A7C66A400B22EA0 /* Haptics.swift */; };
+		0445D5462A7C779300B22EA0 /* CycleRoutes.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 0445D5452A7C775E00B22EA0 /* CycleRoutes.geojson */; };
 		04DC770328F21AED00B07616 /* CycleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC770228F21AED00B07616 /* CycleApp.swift */; };
 		04DC770728F21AEE00B07616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04DC770628F21AEE00B07616 /* Assets.xcassets */; };
 		04DC771D28F21DD800B07616 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC771C28F21DD800B07616 /* ViewModel.swift */; };
-		04DC771F28F21EA500B07616 /* CycleRoutes.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 04DC771E28F21EA500B07616 /* CycleRoutes.geojson */; };
 		04DC772128F2200B00B07616 /* MapButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772028F2200B00B07616 /* MapButtons.swift */; };
 		04DC772328F2202200B07616 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772228F2202100B07616 /* MapView.swift */; };
 		04DC772528F2202700B07616 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772428F2202700B07616 /* RootView.swift */; };
@@ -45,11 +45,11 @@
 		0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapItem.swift; sourceTree = "<group>"; };
 		0445D5422A7C66A400B22EA0 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		0445D5442A7C6A2300B22EA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0445D5452A7C775E00B22EA0 /* CycleRoutes.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = CycleRoutes.geojson; sourceTree = "<group>"; };
 		04DC76FF28F21AED00B07616 /* Cycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DC770228F21AED00B07616 /* CycleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleApp.swift; sourceTree = "<group>"; };
 		04DC770628F21AEE00B07616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04DC771C28F21DD800B07616 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		04DC771E28F21EA500B07616 /* CycleRoutes.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CycleRoutes.geojson; sourceTree = "<group>"; };
 		04DC772028F2200B00B07616 /* MapButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapButtons.swift; sourceTree = "<group>"; };
 		04DC772228F2202100B07616 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		04DC772428F2202700B07616 /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 			children = (
 				0445D5442A7C6A2300B22EA0 /* Info.plist */,
 				04DC770628F21AEE00B07616 /* Assets.xcassets */,
-				04DC771E28F21EA500B07616 /* CycleRoutes.geojson */,
+				0445D5452A7C775E00B22EA0 /* CycleRoutes.geojson */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -221,7 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04DC771F28F21EA500B07616 /* CycleRoutes.geojson in Resources */,
+				0445D5462A7C779300B22EA0 /* CycleRoutes.geojson in Resources */,
 				04DC770728F21AEE00B07616 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

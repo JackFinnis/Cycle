@@ -54,21 +54,20 @@ struct MapButtons: View {
                 
                 Divider().frame(width: Constants.size)
                 Button {
-                    updateMapType()
-                } label: {
-                    Image(systemName: mapTypeImage)
-                        .squareButton()
-                        .rotation3DEffect(.degrees(vm.mapType == .standard ? 0 : 180), axis: (x: 0, y: 1, z: 0))
-                        .rotation3DEffect(.degrees(vm.degrees), axis: (x: 0, y: 1, z: 0))
-                }
-                
-                Divider().frame(width: Constants.size)
-                Button {
                     updateTrackingMode()
                 } label: {
                     Image(systemName: trackingModeImage)
                         .scaleEffect(vm.scale)
                         .squareButton()
+                }
+                
+                Divider().frame(width: Constants.size)
+                Button {
+                    updateMapType()
+                } label: {
+                    Image(systemName: mapTypeImage)
+                        .squareButton()
+                        .rotation3DEffect(.degrees(vm.degrees), axis: (x: 0, y: 1, z: 0))
                 }
                 
                 if !vm.is2D || vm.mapType != .standard {
@@ -150,7 +149,7 @@ struct MapButtons: View {
     var mapTypeImage: String {
         switch vm.mapType {
         case .standard:
-            return "globe.europe.africa.fill"
+            return "globe"
         default:
             return "map"
         }
