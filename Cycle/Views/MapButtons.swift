@@ -20,6 +20,7 @@ struct MapButtons: View {
         VStack(spacing: 10) {
             VStack(spacing: 0) {
                 Menu {
+                    ShareLink("Share \(Constants.name)", item: Constants.appURL)
                     Button {
                         requestReview()
                     } label: {
