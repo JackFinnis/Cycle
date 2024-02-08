@@ -8,45 +8,43 @@
 import SwiftUI
 import MapKit
 
-class _MKMapView: MKMapView {
-    var compass: UIView? {
-        subviews.first(where: { type(of: $0).id == "MKCompassView" })
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if let compass {
-            compass.center = compass.center.applying(.init(translationX: -(15 + Constants.size), y: 5))
-            if (compass.gestureRecognizers?.count ?? 0) < 2 {
-                let tap = UITapGestureRecognizer(target: ViewModel.shared, action: #selector(ViewModel.tappedCompass))
-                tap.delegate = ViewModel.shared
-                compass.addGestureRecognizer(tap)
-            }
-        }
-    }
-}
-
 struct MapView: UIViewRepresentable {
-    @EnvironmentObject var vm: ViewModel
+    @EnvironmentObject var app: AppState
+    
+    let geo: GeometryProxy
     
     func makeUIView(context: Context) -> MKMapView {
-        let mapView = _MKMapView()
-        mapView.delegate = vm
-        vm.mapView = mapView
-        mapView.addOverlays(vm.routes, level: .aboveRoads)
+        let mapView = MKMapView()
+        mapView.delegate = app
+        app.mapView = mapView
+        mapView.addOverlays(app.routes, level: .aboveRoads)
+        
+        let compass = MKCompassButton(mapView: mapView)
+        mapView.showsCompass = false
+        mapView.addSubview(compass)
+        
+        compass.translatesAutoresizingMaskIntoConstraints = false
+        compass.trailingAnchor.constraint(
+            equalTo: mapView.trailingAnchor,
+            constant: -(geo.safeAreaInsets.trailing + Constants.size + 20)
+        ).isActive = true
+        compass.topAnchor.constraint(
+            equalTo: mapView.topAnchor,
+            constant: geo.safeAreaInsets.top + 10
+        ).isActive = true
+        let tap = UITapGestureRecognizer(target: AppState.shared, action: #selector(AppState.tappedCompass))
+        tap.delegate = AppState.shared
+        compass.addGestureRecognizer(tap)
         
         mapView.showsUserLocation = true
         mapView.showsScale = true
-        mapView.showsCompass = true
         mapView.isPitchEnabled = true
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMarkerAnnotationView.id)
-        if #available(iOS 16, *) {
-            mapView.selectableMapFeatures = [.physicalFeatures, .pointsOfInterest, .territories]
-        }
+        mapView.selectableMapFeatures = [.physicalFeatures, .pointsOfInterest, .territories]
         
-        let tapRecognizer = UITapGestureRecognizer(target: vm, action: #selector(ViewModel.handleTap))
+        let tapRecognizer = UITapGestureRecognizer(target: app, action: #selector(AppState.handleTap))
         mapView.addGestureRecognizer(tapRecognizer)
-        let longPressRecognizer = UILongPressGestureRecognizer(target: vm, action: #selector(ViewModel.handlePress))
+        let longPressRecognizer = UILongPressGestureRecognizer(target: app, action: #selector(AppState.handlePress))
         mapView.addGestureRecognizer(longPressRecognizer)
         
         return mapView

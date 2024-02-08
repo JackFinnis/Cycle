@@ -8,9 +8,11 @@
 import SwiftUI
 import MapKit
 import MessageUI
+import StoreKit
 
 struct MapButtons: View {
-    @EnvironmentObject var vm: ViewModel
+    @Environment(\.requestReview) var requestReview
+    @EnvironmentObject var app: AppState
     @State var showEmailSheet = false
     @State var showShareSheet = false
     
@@ -19,17 +21,12 @@ struct MapButtons: View {
             VStack(spacing: 0) {
                 Menu {
                     Button {
-                        showShareSheet.toggle()
-                    } label: {
-                        Label("Share \(Constants.name)", systemImage: "square.and.arrow.up")
-                    }
-                    Button {
-                        Store.requestRating()
+                        requestReview()
                     } label: {
                         Label("Rate \(Constants.name)", systemImage: "star")
                     }
                     Button {
-                        Store.writeReview()
+                        AppStore.writeReview()
                     } label: {
                         Label("Write a Review", systemImage: "quote.bubble")
                     }
@@ -39,7 +36,7 @@ struct MapButtons: View {
                         } label: {
                             Label("Send us Feedback", systemImage: "envelope")
                         }
-                    } else if let url = Emails.mailtoUrl(subject: "\(Constants.name) Feedback"), UIApplication.shared.canOpenURL(url) {
+                    } else if let url = Emails.url(subject: "\(Constants.name) Feedback"), UIApplication.shared.canOpenURL(url) {
                         Button {
                             UIApplication.shared.open(url)
                         } label: {
@@ -50,14 +47,13 @@ struct MapButtons: View {
                     Image(systemName: "info.circle")
                         .squareButton()
                 }
-                .sharePopover(items: [Constants.appUrl], showsSharedAlert: true, isPresented: $showShareSheet)
                 
                 Divider().frame(width: Constants.size)
                 Button {
                     updateTrackingMode()
                 } label: {
                     Image(systemName: trackingModeImage)
-                        .scaleEffect(vm.scale)
+                        .scaleEffect(app.scale)
                         .squareButton()
                 }
                 
@@ -67,15 +63,15 @@ struct MapButtons: View {
                 } label: {
                     Image(systemName: mapTypeImage)
                         .squareButton()
-                        .rotation3DEffect(.degrees(vm.degrees), axis: (x: 0, y: 1, z: 0))
+                        .rotation3DEffect(.degrees(app.degrees), axis: (x: 0, y: 1, z: 0))
                 }
                 
-                if !vm.is2D || vm.mapType != .standard {
+                if !app.is2D || app.mapType != .standard {
                     Divider().frame(width: Constants.size)
                     Button {
-                        vm.updatePitch()
+                        app.updatePitch()
                     } label: {
-                        Image(systemName: vm.is2D ? "view.3d" : "view.2d")
+                        Image(systemName: app.is2D ? "view.3d" : "view.2d")
                             .squareButton()
                     }
                     .transition(.move(edge: .top).combined(with: .opacity))
@@ -83,28 +79,28 @@ struct MapButtons: View {
             }
             .blurBackground()
             
-            if let name = vm.selectedRouteId {
+            if let name = app.selectedRouteId {
                 Button {
-                    vm.zoomToSelected()
+                    app.zoomToSelected()
                 } label: {
                     Text(name)
                         .font(.system(size: 17).weight(.medium))
                         .squareButton()
-                        .animation(.none, value: vm.selectedRouteId)
+                        .animation(.none, value: app.selectedRouteId)
                 }
                 .blurBackground()
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
         .padding(10)
-        .animation(.default, value: vm.selectedRouteId)
-        .animation(.default, value: vm.is2D)
-        .animation(.default, value: vm.mapType)
+        .animation(.default, value: app.selectedRouteId)
+        .animation(.default, value: app.is2D)
+        .animation(.default, value: app.mapType)
         .emailSheet(recipient: Constants.email, subject: "\(Constants.name) Feedback", isPresented: $showEmailSheet)
-        .alert("Access Denied", isPresented: $vm.showAuthAlert) {
+        .alert("Access Denied", isPresented: $app.showAuthAlert) {
             Button("Maybe Later") {}
             Button("Settings", role: .cancel) {
-                vm.openSettings()
+                app.openSettings()
             }
         } message: {
             Text("\(Constants.name) needs access to your location to show where you are on the map. Please go to Settings > \(Constants.name) > Location and select \"While Using the App\".")
@@ -113,7 +109,7 @@ struct MapButtons: View {
     
     func updateTrackingMode() {
         let mode: MKUserTrackingMode
-        switch vm.trackingMode {
+        switch app.trackingMode {
         case .none:
             mode = .follow
         case .follow:
@@ -121,22 +117,22 @@ struct MapButtons: View {
         default:
             mode = .none
         }
-        vm.setTrackingMode(mode)
+        app.setTrackingMode(mode)
     }
     
     func updateMapType() {
         let type: MKMapType
-        switch vm.mapType {
+        switch app.mapType {
         case .standard:
             type = .hybrid
         default:
             type = .standard
         }
-        vm.setMapType(type)
+        app.setMapType(type)
     }
     
     var trackingModeImage: String {
-        switch vm.trackingMode {
+        switch app.trackingMode {
         case .none:
             return "location"
         case .follow:
@@ -147,7 +143,7 @@ struct MapButtons: View {
     }
     
     var mapTypeImage: String {
-        switch vm.mapType {
+        switch app.mapType {
         case .standard:
             return "globe"
         default:

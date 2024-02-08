@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  AppState.swift
 //  Paddle
 //
 //  Created by Jack Finnis on 11/09/2022.
@@ -10,8 +10,8 @@ import MapKit
 import SwiftUI
 
 @MainActor
-class ViewModel: NSObject, ObservableObject {
-    static let shared = ViewModel()
+class AppState: NSObject, ObservableObject {
+    static let shared = AppState()
     
     // MARK: - Properties
     var routes = [Route]()
@@ -176,7 +176,7 @@ class ViewModel: NSObject, ObservableObject {
 }
 
 // MARK: - UIGestureRecognizerDelegate
-extension ViewModel: UIGestureRecognizerDelegate {
+extension AppState: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool { true }
     
     func getCoord(from gesture: UIGestureRecognizer) -> CLLocationCoordinate2D? {
@@ -208,7 +208,7 @@ extension ViewModel: UIGestureRecognizerDelegate {
 }
 
 // MARK: - MKMapViewDelegate
-extension ViewModel: MKMapViewDelegate {
+extension AppState: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let darkMode = UITraitCollection.current.userInterfaceStyle == .dark || mapView.mapType == .hybrid
         if let route = overlay as? Route {
@@ -298,7 +298,7 @@ extension ViewModel: MKMapViewDelegate {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension ViewModel: CLLocationManagerDelegate {
+extension AppState: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authStatus = manager.authorizationStatus
         if authStatus == .denied {

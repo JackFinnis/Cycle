@@ -10,11 +10,8 @@
 		0402C6C22A18F98A00238C51 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C12A18F98A00238C51 /* Constants.swift */; };
 		0402C6C42A18FA2F00238C51 /* CarbonCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C32A18FA2F00238C51 /* CarbonCopy.swift */; };
 		0402C6C62A18FBD700238C51 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C52A18FBD700238C51 /* View.swift */; };
-		0402C6C82A18FCC600238C51 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C72A18FCC600238C51 /* Store.swift */; };
+		0402C6C82A18FCC600238C51 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C72A18FCC600238C51 /* AppStore.swift */; };
 		0402C6CA2A18FCF900238C51 /* Emails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C92A18FCF900238C51 /* Emails.swift */; };
-		0402C6CC2A18FD0600238C51 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6CB2A18FD0600238C51 /* String.swift */; };
-		0402C6CE2A18FD4700238C51 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6CD2A18FD4700238C51 /* EmailView.swift */; };
-		0402C6D02A18FD7400238C51 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6CF2A18FD7400238C51 /* ShareView.swift */; };
 		0402C6D22A19034700238C51 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D12A19034700238C51 /* Array.swift */; };
 		0402C6D42A19063000238C51 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D32A19063000238C51 /* NSObject.swift */; };
 		0445D5412A7C65ED00B22EA0 /* MKMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */; };
@@ -35,11 +32,8 @@
 		0402C6C12A18F98A00238C51 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0402C6C32A18FA2F00238C51 /* CarbonCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonCopy.swift; sourceTree = "<group>"; };
 		0402C6C52A18FBD700238C51 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		0402C6C72A18FCC600238C51 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		0402C6C72A18FCC600238C51 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		0402C6C92A18FCF900238C51 /* Emails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emails.swift; sourceTree = "<group>"; };
-		0402C6CB2A18FD0600238C51 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		0402C6CD2A18FD4700238C51 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
-		0402C6CF2A18FD7400238C51 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		0402C6D12A19034700238C51 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		0402C6D32A19063000238C51 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapItem.swift; sourceTree = "<group>"; };
@@ -85,8 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				0402C6C32A18FA2F00238C51 /* CarbonCopy.swift */,
-				0402C6CD2A18FD4700238C51 /* EmailView.swift */,
-				0402C6CF2A18FD7400238C51 /* ShareView.swift */,
 				0402C6C52A18FBD700238C51 /* View.swift */,
 			);
 			path = Extra;
@@ -109,7 +101,6 @@
 				0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */,
 				04DC772A28F832F100B07616 /* MKMultiPoint.swift */,
 				0402C6D32A19063000238C51 /* NSObject.swift */,
-				0402C6CB2A18FD0600238C51 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -127,10 +118,10 @@
 		0402C6C02A18F95700238C51 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0402C6C72A18FCC600238C51 /* AppStore.swift */,
 				0402C6C12A18F98A00238C51 /* Constants.swift */,
 				0402C6C92A18FCF900238C51 /* Emails.swift */,
 				0445D5422A7C66A400B22EA0 /* Haptics.swift */,
-				0402C6C72A18FCC600238C51 /* Store.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -239,12 +230,10 @@
 				0402C6D42A19063000238C51 /* NSObject.swift in Sources */,
 				0445D5412A7C65ED00B22EA0 /* MKMapItem.swift in Sources */,
 				0402C6D22A19034700238C51 /* Array.swift in Sources */,
-				0402C6C82A18FCC600238C51 /* Store.swift in Sources */,
-				0402C6CC2A18FD0600238C51 /* String.swift in Sources */,
+				0402C6C82A18FCC600238C51 /* AppStore.swift in Sources */,
 				04DC772B28F832F100B07616 /* MKMultiPoint.swift in Sources */,
 				04DC772328F2202200B07616 /* MapView.swift in Sources */,
 				0402C6C22A18F98A00238C51 /* Constants.swift in Sources */,
-				0402C6D02A18FD7400238C51 /* ShareView.swift in Sources */,
 				0445D5432A7C66A400B22EA0 /* Haptics.swift in Sources */,
 				0402C6CA2A18FCF900238C51 /* Emails.swift in Sources */,
 				04DC771D28F21DD800B07616 /* ViewModel.swift in Sources */,
@@ -252,7 +241,6 @@
 				04DC772928F8317300B07616 /* Route.swift in Sources */,
 				0402C6C62A18FBD700238C51 /* View.swift in Sources */,
 				04DC772528F2202700B07616 /* RootView.swift in Sources */,
-				0402C6CE2A18FD4700238C51 /* EmailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +378,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -421,7 +409,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -9,25 +9,29 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.scenePhase) var scenePhase
-    @Environment(\.colorScheme) var colorScheme
-    @StateObject var vm = ViewModel.shared
 
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            MapView()
-                .ignoresSafeArea()
-            
-            VStack {
-                CarbonCopy()
-                    .id(scenePhase)
-                    .blur(radius: 10, opaque: true)
+        GeometryReader { geo in
+            ZStack(alignment: .topTrailing) {
+                MapView(geo: geo)
                     .ignoresSafeArea()
-                Spacer()
-                    .layoutPriority(1)
+                
+                VStack {
+                    CarbonCopy()
+                        .id(scenePhase)
+                        .blur(radius: 10)
+                        .ignoresSafeArea()
+                    Spacer()
+                        .layoutPriority(1)
+                }
+                
+                MapButtons()
             }
-            
-            MapButtons()
         }
-        .environmentObject(vm)
     }
+}
+
+#Preview {
+    RootView()
+        .environmentObject(AppState())
 }
