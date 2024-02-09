@@ -22,14 +22,3 @@ extension Route: MKOverlay {
     var coordinate: CLLocationCoordinate2D { polyline.coordinate }
     var boundingMapRect: MKMapRect { polyline.boundingMapRect }
 }
-
-struct RouteProperties: Codable {
-    let Label: String
-    let Status: RouteStatus
-}
-
-enum RouteStatus: String, Codable {
-    case planned = "Planned"
-    case inProgress = "In Progress"
-    case open = "Open"
-}
