@@ -81,11 +81,12 @@ struct RootView: View {
                         }
                     } label: {
                         Image(systemName: "info.circle")
-                            .font(.system(size: 20))
+                            .font(.system(size: 18))
                             .frame(width: Constants.size, height: Constants.size)
                     }
                     .background(.ultraThickMaterial)
                     .clipShape(.rect(cornerRadius: 8))
+                    .shadow(color: Color(.systemFill), radius: 5)
                     
                     MapCompass(scope: mapScope)
                 }
