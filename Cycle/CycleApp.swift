@@ -14,12 +14,9 @@ import MessageUI
 
 @main
 struct CycleApp: App {
-    @StateObject var app = AppState.shared
-    
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(app)
         }
     }
 }
@@ -28,10 +25,11 @@ struct RootView: View {
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.requestReview) var requestReview
     @State var showEmailSheet = false
+    @Namespace var mapScope
 
     var body: some View {
         GeometryReader { geo in
-            Map(initialPosition: .userLocation(fallback: .automatic)) {
+            Map(initialPosition: .userLocation(fallback: .automatic), scope: mapScope) {
                 UserAnnotation()
                 ForEach(polylines, id: \.self) { polyline in
                     MapPolyline(polyline)
@@ -43,7 +41,6 @@ struct RootView: View {
             .mapControls {
                 MapUserLocationButton()
                 MapPitchToggle()
-                MapCompass()
             }
             .overlay(alignment: .top) {
                 CarbonCopy()
@@ -55,44 +52,49 @@ struct RootView: View {
                     }
                     .ignoresSafeArea()
             }
-            .emailSheet(recipient: Constants.email, subject: "\(Constants.name) Feedback", isPresented: $showEmailSheet)
-            .safeAreaInset(edge: .top, alignment: .trailing, spacing: 0) {
-                Menu {
-                    ShareLink("Share \(Constants.name)", item: Constants.appURL)
-                    Button {
-                        requestReview()
-                    } label: {
-                        Label("Rate \(Constants.name)", systemImage: "star")
-                    }
-                    Button {
-                        AppStore.writeReview()
-                    } label: {
-                        Label("Write a Review", systemImage: "quote.bubble")
-                    }
-                    if MFMailComposeViewController.canSendMail() {
+            .overlay(alignment: .topTrailing) {
+                VStack(spacing: 10) {
+                    Menu {
+                        ShareLink("Share \(Constants.name)", item: Constants.appURL)
                         Button {
-                            showEmailSheet.toggle()
+                            requestReview()
                         } label: {
-                            Label("Send us Feedback", systemImage: "envelope")
+                            Label("Rate \(Constants.name)", systemImage: "star")
                         }
-                    } else if let url = Emails.url(subject: "\(Constants.name) Feedback"), UIApplication.shared.canOpenURL(url) {
                         Button {
-                            UIApplication.shared.open(url)
+                            AppStore.writeReview()
                         } label: {
-                            Label("Send us Feedback", systemImage: "envelope")
+                            Label("Write a Review", systemImage: "quote.bubble")
                         }
+                        if MFMailComposeViewController.canSendMail() {
+                            Button {
+                                showEmailSheet.toggle()
+                            } label: {
+                                Label("Send us Feedback", systemImage: "envelope")
+                            }
+                        } else if let url = Emails.url(subject: "\(Constants.name) Feedback"), UIApplication.shared.canOpenURL(url) {
+                            Button {
+                                UIApplication.shared.open(url)
+                            } label: {
+                                Label("Send us Feedback", systemImage: "envelope")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 20))
+                            .frame(width: Constants.size, height: Constants.size)
                     }
-                } label: {
-                    let size = 44.0
-                    Image(systemName: "info.circle")
-                        .font(.system(size: 20))
-                        .frame(width: size, height: size)
+                    .background(.ultraThickMaterial)
+                    .clipShape(.rect(cornerRadius: 8))
+                    
+                    MapCompass(scope: mapScope)
                 }
-                .background(.ultraThickMaterial)
-                .clipShape(.rect(cornerRadius: 8))
-                .padding([.horizontal, .top], 10)
+                .padding(.trailing, 10)
+                .padding(.top, Constants.size*2 + 30)
             }
         }
+        .mapScope(mapScope)
+        .emailSheet(recipient: Constants.email, subject: "\(Constants.name) Feedback", isPresented: $showEmailSheet)
     }
 }
 
