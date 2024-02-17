@@ -96,22 +96,6 @@ struct RootView: View {
                 }
                 .overlay(alignment: .topTrailing) {
                     VStack(spacing: 10) {
-                        MapUserLocationButton(scope: mapScope)
-                            .buttonBorderShape(.roundedRectangle)
-                        MapPitchToggle(scope: mapScope)
-                            .buttonBorderShape(.roundedRectangle)
-                            .mapControlVisibility(.visible)
-                        
-                        Button {
-                            mapStyle = mapStandard ? .hybrid(elevation: .realistic, showsTraffic: true) : .standard(elevation: .realistic, showsTraffic: true)
-                            mapStandard.toggle()
-                        } label: {
-                            Image(systemName: mapStandard ? "globe" : "map")
-                                .box()
-                                .rotation3DEffect(mapStandard ? .degrees(180) : .zero, axis: (0, 1, 0))
-                        }
-                        .mapButton()
-                        
                         Menu {
                             ShareLink("Share \(Constants.name)", item: Constants.appURL)
                             Button {
@@ -142,6 +126,23 @@ struct RootView: View {
                                 .box()
                         }
                         .mapButton()
+                        
+                        MapUserLocationButton(scope: mapScope)
+                            .buttonBorderShape(.roundedRectangle)
+                        
+                        Button {
+                            mapStyle = mapStandard ? .hybrid(elevation: .realistic, showsTraffic: true) : .standard(elevation: .realistic, showsTraffic: true)
+                            mapStandard.toggle()
+                        } label: {
+                            Image(systemName: mapStandard ? "globe" : "map")
+                                .box()
+                                .rotation3DEffect(mapStandard ? .degrees(180) : .zero, axis: (0, 1, 0))
+                        }
+                        .mapButton()
+                        
+                        MapPitchToggle(scope: mapScope)
+                            .buttonBorderShape(.roundedRectangle)
+                            .mapControlVisibility(.visible)
                         
                         if let selectedMapItem {
                             Button {
