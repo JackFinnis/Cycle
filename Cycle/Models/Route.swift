@@ -2,7 +2,7 @@
 //  Route.swift
 //  Cycle
 //
-//  Created by Jack Finnis on 13/10/2022.
+//  Created by Jack Finnis on 17/02/2024.
 //
 
 import Foundation
@@ -21,4 +21,15 @@ class Route: NSObject {
 extension Route: MKOverlay {
     var coordinate: CLLocationCoordinate2D { polyline.coordinate }
     var boundingMapRect: MKMapRect { polyline.boundingMapRect }
+}
+
+struct RouteProperties: Codable {
+    let Label: String
+    let Status: RouteStatus
+}
+
+enum RouteStatus: String, Codable {
+    case planned = "Planned"
+    case inProgress = "In Progress"
+    case open = "Open"
 }

@@ -12,13 +12,20 @@
 		0402C6CA2A18FCF900238C51 /* Emails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6C92A18FCF900238C51 /* Emails.swift */; };
 		0445D5432A7C66A400B22EA0 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445D5422A7C66A400B22EA0 /* Haptics.swift */; };
 		0445D5462A7C779300B22EA0 /* CycleRoutes.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 0445D5452A7C775E00B22EA0 /* CycleRoutes.geojson */; };
+		045B93002B803762002ED01B /* CarbonCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B92FF2B803762002ED01B /* CarbonCopy.swift */; };
+		045B93022B803795002ED01B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B93012B803795002ED01B /* RootView.swift */; };
+		045B93052B8037AF002ED01B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B93042B8037AF002ED01B /* Route.swift */; };
+		045B93072B8037D5002ED01B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B93062B8037D5002ED01B /* View.swift */; };
+		045B93092B804BE6002ED01B /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */; };
+		045B930D2B805149002ED01B /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402C6D12A19034700238C51 /* Array.swift */; };
+		045B930E2B8059E8002ED01B /* MKMultiPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772A28F832F100B07616 /* MKMultiPoint.swift */; };
+		045B93102B805A75002ED01B /* MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B930F2B805A75002ED01B /* MKMapRect.swift */; };
 		04DC770328F21AED00B07616 /* CycleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC770228F21AED00B07616 /* CycleApp.swift */; };
 		04DC770728F21AEE00B07616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04DC770628F21AEE00B07616 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0402C6C12A18F98A00238C51 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		0402C6C52A18FBD700238C51 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		0402C6C72A18FCC600238C51 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		0402C6C92A18FCF900238C51 /* Emails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emails.swift; sourceTree = "<group>"; };
 		0402C6D12A19034700238C51 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -26,13 +33,14 @@
 		0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapItem.swift; sourceTree = "<group>"; };
 		0445D5422A7C66A400B22EA0 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		0445D5452A7C775E00B22EA0 /* CycleRoutes.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = CycleRoutes.geojson; sourceTree = "<group>"; };
+		045B92FF2B803762002ED01B /* CarbonCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonCopy.swift; sourceTree = "<group>"; };
+		045B93012B803795002ED01B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		045B93042B8037AF002ED01B /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		045B93062B8037D5002ED01B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		045B930F2B805A75002ED01B /* MKMapRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapRect.swift; sourceTree = "<group>"; };
 		04DC76FF28F21AED00B07616 /* Cycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DC770228F21AED00B07616 /* CycleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleApp.swift; sourceTree = "<group>"; };
 		04DC770628F21AEE00B07616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		04DC771C28F21DD800B07616 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		04DC772028F2200B00B07616 /* MapButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapButtons.swift; sourceTree = "<group>"; };
-		04DC772228F2202100B07616 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		04DC772828F8317300B07616 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		04DC772A28F832F100B07616 /* MKMultiPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMultiPoint.swift; sourceTree = "<group>"; };
 		04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,21 +76,44 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		0464BE392B75C5170080E598 /* Old */ = {
+		045B92FD2B803746002ED01B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				04DC772228F2202100B07616 /* MapView.swift */,
-				04DC772028F2200B00B07616 /* MapButtons.swift */,
-				0402C6C52A18FBD700238C51 /* View.swift */,
-				04DC771C28F21DD800B07616 /* ViewModel.swift */,
-				04DC772828F8317300B07616 /* Route.swift */,
+				04DC770228F21AED00B07616 /* CycleApp.swift */,
+				045B93012B803795002ED01B /* RootView.swift */,
+				045B92FE2B803754002ED01B /* Extra */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		045B92FE2B803754002ED01B /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				045B92FF2B803762002ED01B /* CarbonCopy.swift */,
+				045B93062B8037D5002ED01B /* View.swift */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
+		045B93032B8037A4002ED01B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				045B93042B8037AF002ED01B /* Route.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		045B93082B8038B5002ED01B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
 				0402C6D12A19034700238C51 /* Array.swift */,
-				04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */,
 				0445D5402A7C65ED00B22EA0 /* MKMapItem.swift */,
+				045B930F2B805A75002ED01B /* MKMapRect.swift */,
 				04DC772A28F832F100B07616 /* MKMultiPoint.swift */,
 				0402C6D32A19063000238C51 /* NSObject.swift */,
+				04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */,
 			);
-			path = Old;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		04DC76F628F21AED00B07616 = {
@@ -104,10 +135,11 @@
 		04DC770128F21AED00B07616 /* Cycle */ = {
 			isa = PBXGroup;
 			children = (
-				04DC770228F21AED00B07616 /* CycleApp.swift */,
+				045B92FD2B803746002ED01B /* Views */,
+				045B93032B8037A4002ED01B /* Models */,
 				0402C6C02A18F95700238C51 /* Helpers */,
 				0402C6BF2A18F75000238C51 /* Resources */,
-				0464BE392B75C5170080E598 /* Old */,
+				045B93082B8038B5002ED01B /* Extensions */,
 			);
 			path = Cycle;
 			sourceTree = "<group>";
@@ -183,10 +215,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				0402C6C82A18FCC600238C51 /* AppStore.swift in Sources */,
+				045B93102B805A75002ED01B /* MKMapRect.swift in Sources */,
 				0402C6C22A18F98A00238C51 /* Constants.swift in Sources */,
 				0445D5432A7C66A400B22EA0 /* Haptics.swift in Sources */,
+				045B93092B804BE6002ED01B /* CLLocationCoordinate2D.swift in Sources */,
 				0402C6CA2A18FCF900238C51 /* Emails.swift in Sources */,
+				045B93022B803795002ED01B /* RootView.swift in Sources */,
+				045B930D2B805149002ED01B /* Array.swift in Sources */,
+				045B93072B8037D5002ED01B /* View.swift in Sources */,
+				045B93052B8037AF002ED01B /* Route.swift in Sources */,
 				04DC770328F21AED00B07616 /* CycleApp.swift in Sources */,
+				045B930E2B8059E8002ED01B /* MKMultiPoint.swift in Sources */,
+				045B93002B803762002ED01B /* CarbonCopy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
