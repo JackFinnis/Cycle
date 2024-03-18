@@ -14,7 +14,7 @@ extension View {
     
     func mapButton() -> some View {
         self
-            .font(.system(size: 18))
+            .font(.system(size: 19))
             .background(.ultraThickMaterial)
             .clipShape(.rect(cornerRadius: 8))
             .shadow(color: Color(.systemFill), radius: 5)
