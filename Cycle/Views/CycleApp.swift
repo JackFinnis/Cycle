@@ -23,16 +23,23 @@ let routes: [Route] = {
     let data = try! Data(contentsOf: file)
     let features = try! MKGeoJSONDecoder().decode(data) as! [MKGeoJSONFeature]
     
-    return features.flatMap { feature -> [Route] in
+    let routes = features.compactMap { feature -> Route? in
         let geometry = feature.geometry.first!
         let properties = try! JSONDecoder().decode(RouteProperties.self, from: feature.properties!)
-        guard properties.Status == .open else { return [] }
+        guard properties.Status == .open else { return nil }
         
         if let polyline = geometry as? MKPolyline {
-            return [Route(id: properties.Label, polyline: polyline)]
+            return Route(id: properties.Label, multiPolyline: MKMultiPolyline([polyline]))
         } else if let multiPolyline = geometry as? MKMultiPolyline {
-            return multiPolyline.polylines.map { Route(id: properties.Label, polyline: $0) }
+            return Route(id: properties.Label, multiPolyline: multiPolyline)
         }
-        return []
+        return nil
+    }
+    
+    let dict = Dictionary(grouping: routes, by: \.id)
+    return dict.values.map { routes in
+        let route = routes.first!
+        let multiPolyline = MKMultiPolyline(routes.map(\.multiPolyline).flatMap(\.polylines))
+        return Route(id: route.id, multiPolyline: multiPolyline)
     }
 }()

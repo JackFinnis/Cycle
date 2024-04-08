@@ -10,17 +10,17 @@ import MapKit
 
 class Route: NSObject {
     let id: String
-    let polyline: MKPolyline
+    let multiPolyline: MKMultiPolyline
     
-    init(id: String, polyline: MKPolyline) {
+    init(id: String, multiPolyline: MKMultiPolyline) {
         self.id = id
-        self.polyline = polyline
+        self.multiPolyline = multiPolyline
     }
 }
 
 extension Route: MKOverlay {
-    var coordinate: CLLocationCoordinate2D { polyline.coordinate }
-    var boundingMapRect: MKMapRect { polyline.boundingMapRect }
+    var coordinate: CLLocationCoordinate2D { multiPolyline.coordinate }
+    var boundingMapRect: MKMapRect { multiPolyline.boundingMapRect }
 }
 
 struct RouteProperties: Codable {
