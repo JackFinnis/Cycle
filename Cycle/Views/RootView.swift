@@ -12,26 +12,23 @@ import MessageUI
 
 struct RootView: View {
     @Environment(\.scenePhase) var scenePhase
-    @Environment(\.requestReview) var requestReview
     @Environment(\.colorScheme) var colorScheme
     
     @State var mapStyle = MapStyle.standard
     @State var mapStandard = true
     @State var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @State var mapRect: MKMapRect?
-    @State var liveGesture = false
     @Namespace var mapScope
     
     @State var selectedRoute: Route?
-    @State var selectedMapItem: MKMapItem?
-    @State var showEmailSheet = false
+    @State var selectedFeature: MapFeature?
 
     var body: some View {
-        let routeColor = colorScheme == .light ? Color.blue : .cyan
+        let routeColor = colorScheme == .light && mapStandard ? Color.blue : .cyan
         
         MapReader { map in
             GeometryReader { geo in
-                Map(position: $mapPosition, selection: $selectedMapItem.animation(), scope: mapScope) {
+                Map(position: $mapPosition, interactionModes: [.pan, .rotate, .zoom], selection: $selectedFeature.animation(), scope: mapScope) {
                     UserAnnotation()
                         .tag(MKMapItem.forCurrentLocation())
                     ForEach(routes, id: \.self) { route in
@@ -41,10 +38,6 @@ struct RootView: View {
                                 .mapOverlayLevel(level: selected ? .aboveLabels : .aboveRoads)
                                 .stroke(selected ? .orange : routeColor, style: .init(lineWidth: 3, lineCap: .round, lineJoin: .round))
                         }
-                    }
-                    if let selectedMapItem {
-                        Marker(item: selectedMapItem)
-                            .tag(selectedMapItem)
                     }
                 }
                 .contentMargins(20)
@@ -57,24 +50,6 @@ struct RootView: View {
                     guard let coord = map.convert(point, from: .local) else { return }
                     selectClosestRoute(to: coord)
                 }
-                .gesture(
-                    LongPressGesture(minimumDuration: 1, maximumDistance: 0)
-                        .simultaneously(with: DragGesture(minimumDistance: 0, coordinateSpace: .local))
-                        .onEnded { value in
-                            liveGesture = false
-                        }
-                        .onChanged { value in
-                            guard let drag = value.second,
-                                  let coord = map.convert(drag.location, from: .local),
-                                  !liveGesture
-                            else { return }
-                            liveGesture = true
-                            Haptics.tap()
-                            Task {
-                                await dropPin(at: coord)
-                            }
-                        }
-                )
                 .overlay(alignment: .top) {
                     CarbonCopy()
                         .id(scenePhase)
@@ -104,31 +79,6 @@ struct RootView: View {
                         MapUserLocationButton(scope: mapScope)
                             .buttonBorderShape(.roundedRectangle)
                         
-                        Menu {
-                            ShareLink("Share \(Constants.name)", item: Constants.appURL)
-                            Button {
-                                requestReview()
-                            } label: {
-                                Label("Rate \(Constants.name)", systemImage: "star")
-                            }
-                            Button {
-                                AppStore.writeReview()
-                            } label: {
-                                Label("Write a Review", systemImage: "quote.bubble")
-                            }
-                            if let url = Emails.url(subject: "\(Constants.name) Feedback"), UIApplication.shared.canOpenURL(url) {
-                                Button {
-                                    UIApplication.shared.open(url)
-                                } label: {
-                                    Label("Send us Feedback", systemImage: "envelope")
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "info.circle")
-                                .box()
-                        }
-                        .mapButton()
-                        
                         if let selectedRoute {
                             Button {
                                 withAnimation {
@@ -151,25 +101,22 @@ struct RootView: View {
             }
         }
         .confirmationDialog("", isPresented: Binding(get: {
-            selectedMapItem != nil
+            selectedFeature != nil
         }, set: { isPresented in
             withAnimation {
                 if !isPresented {
-                    selectedMapItem = nil
+                    selectedFeature = nil
                 }
             }
         })) {
-            if let selectedMapItem {
+            if let selectedFeature {
                 Button("Directions") {
-                    selectedMapItem.openInMaps()
+                    MKMapItemRequest(feature: selectedFeature).getMapItem { mapItem, error in
+                        mapItem?.openInMaps()
+                    }
                 }
             }
         }
-    }
-    
-    func dropPin(at coord: CLLocationCoordinate2D) async {
-        guard let placemark = try? await CLGeocoder().reverseGeocodeLocation(coord.location).first else { return }
-        selectedMapItem = MKMapItem(placemark: MKPlacemark(placemark: placemark))
     }
     
     var tapSize: Double {
