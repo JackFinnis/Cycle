@@ -20,6 +20,7 @@ struct RootView: View {
     @State var mapRect: MKMapRect?
     @Namespace var mapScope
     
+    @State var routes = [Route]()
     @State var selectedRoute: Route?
     @State var selectedFeature: MapFeature?
 
@@ -79,6 +80,13 @@ struct RootView: View {
                         MapUserLocationButton(scope: mapScope)
                             .buttonBorderShape(.roundedRectangle)
                         
+                        if routes.isEmpty {
+                            ProgressView()
+                                .box()
+                                .mapButton()
+                                .transition(.move(edge: .top).combined(with: .opacity))
+                        }
+                        
                         if let selectedRoute {
                             Button {
                                 withAnimation {
@@ -100,7 +108,7 @@ struct RootView: View {
                 .mapScope(mapScope)
             }
         }
-        .confirmationDialog("", isPresented: Binding(get: {
+        .confirmationDialog(selectedFeature?.title ?? "", isPresented: Binding(get: {
             selectedFeature != nil
         }, set: { isPresented in
             withAnimation {
@@ -108,7 +116,7 @@ struct RootView: View {
                     selectedFeature = nil
                 }
             }
-        })) {
+        }), titleVisibility: .visible) {
             if let selectedFeature {
                 Button("Directions") {
                     MKMapItemRequest(feature: selectedFeature).getMapItem { mapItem, error in
@@ -116,6 +124,10 @@ struct RootView: View {
                     }
                 }
             }
+        }
+        .animation(.default, value: routes)
+        .task {
+            await fetchRoutes()
         }
     }
     
@@ -149,6 +161,39 @@ struct RootView: View {
         
         withAnimation {
             selectedRoute = closestRoute
+        }
+    }
+    
+    func fetchRoutes() async {
+        let data: Data
+        do {
+            let url = URL(string: "https://cycling.data.tfl.gov.uk/CycleRoutes/CycleRoutes.json")!
+            (data, _) = try await URLSession.shared.data(from: url)
+        } catch {
+            let file = Bundle.main.url(forResource: "CycleRoutes", withExtension: "geojson")!
+            data = try! Data(contentsOf: file)
+        }
+        
+        let features = try! MKGeoJSONDecoder().decode(data) as! [MKGeoJSONFeature]
+        let routes = features.compactMap { feature -> Route? in
+            let geometry = feature.geometry.first!
+            guard let properties = try? JSONDecoder().decode(RouteProperties.self, from: feature.properties!),
+                  properties.Status == .open
+            else { return nil }
+            
+            if let polyline = geometry as? MKPolyline {
+                return Route(id: properties.Label, multiPolyline: MKMultiPolyline([polyline]))
+            } else if let multiPolyline = geometry as? MKMultiPolyline {
+                return Route(id: properties.Label, multiPolyline: multiPolyline)
+            }
+            return nil
+        }
+        
+        let dict = Dictionary(grouping: routes, by: \.id)
+        self.routes = dict.values.map { routes in
+            let route = routes.first!
+            let multiPolyline = MKMultiPolyline(routes.map(\.multiPolyline).flatMap(\.polylines))
+            return Route(id: route.id, multiPolyline: multiPolyline)
         }
     }
 }
