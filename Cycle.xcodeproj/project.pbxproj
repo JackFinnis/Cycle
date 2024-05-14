@@ -14,7 +14,6 @@
 		045B93072B8037D5002ED01B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B93062B8037D5002ED01B /* View.swift */; };
 		045B93092B804BE6002ED01B /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */; };
 		045B930E2B8059E8002ED01B /* MKMultiPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC772A28F832F100B07616 /* MKMultiPoint.swift */; };
-		045B93102B805A75002ED01B /* MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B930F2B805A75002ED01B /* MKMapRect.swift */; };
 		04DC770328F21AED00B07616 /* CycleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC770228F21AED00B07616 /* CycleApp.swift */; };
 		04DC770728F21AEE00B07616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04DC770628F21AEE00B07616 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -25,7 +24,6 @@
 		045B93012B803795002ED01B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		045B93042B8037AF002ED01B /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		045B93062B8037D5002ED01B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		045B930F2B805A75002ED01B /* MKMapRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapRect.swift; sourceTree = "<group>"; };
 		04DC76FF28F21AED00B07616 /* Cycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DC770228F21AED00B07616 /* CycleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleApp.swift; sourceTree = "<group>"; };
 		04DC770628F21AEE00B07616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 		045B93082B8038B5002ED01B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				045B930F2B805A75002ED01B /* MKMapRect.swift */,
 				04DC772A28F832F100B07616 /* MKMultiPoint.swift */,
 				04DC772C28F8355200B07616 /* CLLocationCoordinate2D.swift */,
 			);
@@ -187,7 +184,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				045B93102B805A75002ED01B /* MKMapRect.swift in Sources */,
 				045B93092B804BE6002ED01B /* CLLocationCoordinate2D.swift in Sources */,
 				045B93022B803795002ED01B /* RootView.swift in Sources */,
 				045B93072B8037D5002ED01B /* View.swift in Sources */,
@@ -327,7 +323,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_CFBundleDisplayName = "Cycle Lane";
+				INFOPLIST_KEY_CFBundleDisplayName = "Cycle Lanes";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location is shown on the map";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -358,7 +354,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_CFBundleDisplayName = "Cycle Lane";
+				INFOPLIST_KEY_CFBundleDisplayName = "Cycle Lanes";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your current location is shown on the map";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

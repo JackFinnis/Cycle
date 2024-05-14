@@ -17,19 +17,17 @@ struct RootView: View {
     @State var mapStyle = MapStyle.standard
     @State var mapStandard = true
     @State var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
-    @State var mapRect: MKMapRect?
     @Namespace var mapScope
     
     @State var routes = [Route]()
     @State var selectedRoute: Route?
-    @State var selectedFeature: MapFeature?
 
     var body: some View {
         let routeColor = colorScheme == .light && mapStandard ? Color.blue : .cyan
         
         MapReader { map in
             GeometryReader { geo in
-                Map(position: $mapPosition, interactionModes: [.pan, .rotate, .zoom], selection: $selectedFeature.animation(), scope: mapScope) {
+                Map(position: $mapPosition, interactionModes: [.pan, .rotate, .zoom], scope: mapScope) {
                     UserAnnotation()
                         .tag(MKMapItem.forCurrentLocation())
                     ForEach(routes, id: \.self) { route in
@@ -44,12 +42,13 @@ struct RootView: View {
                 .contentMargins(20)
                 .mapStyle(mapStyle)
                 .mapControls {}
-                .onMapCameraChange { context in
-                    mapRect = context.rect
-                }
                 .onTapGesture { point in
                     guard let coord = map.convert(point, from: .local) else { return }
-                    selectClosestRoute(to: coord)
+                    if selectedRoute == nil {
+                        selectClosestRoute(to: coord)
+                    } else {
+                        selectedRoute = nil
+                    }
                 }
                 .overlay(alignment: .top) {
                     CarbonCopy()
@@ -108,50 +107,24 @@ struct RootView: View {
                 .mapScope(mapScope)
             }
         }
-        .confirmationDialog(selectedFeature?.title ?? "", isPresented: Binding(get: {
-            selectedFeature != nil
-        }, set: { isPresented in
-            withAnimation {
-                if !isPresented {
-                    selectedFeature = nil
-                }
-            }
-        }), titleVisibility: .visible) {
-            if let selectedFeature {
-                Button("Directions") {
-                    MKMapItemRequest(feature: selectedFeature).getMapItem { mapItem, error in
-                        mapItem?.openInMaps()
-                    }
-                }
-            }
-        }
         .animation(.default, value: routes)
         .task {
             await fetchRoutes()
         }
     }
     
-    var tapSize: Double {
-        guard let mapRect else { return 0 }
-        let left = MKMapPoint(x: mapRect.minX, y: mapRect.midY)
-        let right = MKMapPoint(x: mapRect.maxX, y: mapRect.midY)
-        return left.distance(to: right) / 20
-    }
-    
     func selectClosestRoute(to targetCoord: CLLocationCoordinate2D) {
-        let tapSize = tapSize
         let targetLocation = targetCoord.location
         let targetPoint = MKMapPoint(targetCoord)
         
         var shortestDistance = Double.infinity
         var closestRoute: Route?
         
-        for route in routes where route.boundingMapRect.padding(tapSize).contains(targetPoint) {
-            for polyline in route.multiPolyline.polylines where polyline.boundingMapRect.padding(tapSize).contains(targetPoint) {
+        for route in routes {
+            for polyline in route.multiPolyline.polylines {
                 for coord in polyline.coordinates {
                     let delta = targetLocation.distance(from: coord.location)
-                    
-                    if delta < shortestDistance && delta < tapSize {
+                    if delta < shortestDistance {
                         shortestDistance = delta
                         closestRoute = route
                     }
