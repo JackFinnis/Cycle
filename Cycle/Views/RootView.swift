@@ -72,7 +72,7 @@ struct RootView: View {
                         } label: {
                             Image(systemName: mapStandard ? "globe.americas.fill" : "map")
                                 .contentTransition(.symbolEffect(.replace))
-                                .box()
+                                .mapBox()
                         }
                         .mapButton()
                         
@@ -81,7 +81,7 @@ struct RootView: View {
                         
                         if routes.isEmpty {
                             ProgressView()
-                                .box()
+                                .mapBox()
                                 .mapButton()
                                 .transition(.move(edge: .top).combined(with: .opacity))
                         }
@@ -94,7 +94,7 @@ struct RootView: View {
                             } label: {
                                 Text(selectedRoute.id)
                                     .font(.system(size: 17))
-                                    .box()
+                                    .mapBox()
                             }
                             .mapButton()
                             .transition(.move(edge: .top).combined(with: .opacity))
@@ -108,6 +108,7 @@ struct RootView: View {
             }
         }
         .animation(.default, value: routes)
+        .animation(.default, value: selectedRoute)
         .task {
             await fetchRoutes()
         }
@@ -115,8 +116,6 @@ struct RootView: View {
     
     func selectClosestRoute(to targetCoord: CLLocationCoordinate2D) {
         let targetLocation = targetCoord.location
-        let targetPoint = MKMapPoint(targetCoord)
-        
         var shortestDistance = Double.infinity
         var closestRoute: Route?
         
@@ -132,9 +131,7 @@ struct RootView: View {
             }
         }
         
-        withAnimation {
-            selectedRoute = closestRoute
-        }
+        selectedRoute = closestRoute
     }
     
     func fetchRoutes() async {
