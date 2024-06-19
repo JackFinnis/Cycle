@@ -146,8 +146,8 @@ struct RootView: View {
         
         let features = try! MKGeoJSONDecoder().decode(data) as! [MKGeoJSONFeature]
         let routes = features.compactMap { feature -> Route? in
-            let geometry = feature.geometry.first!
-            guard let properties = try? JSONDecoder().decode(RouteProperties.self, from: feature.properties!),
+            guard let geometry = feature.geometry.first,
+                  let properties = try? JSONDecoder().decode(RouteProperties.self, from: feature.properties!),
                   properties.Status == .open
             else { return nil }
             
